@@ -324,7 +324,7 @@ Gamepass:Button({
     Title = "One-time Set Trap",
     Desc = "[for mobile users] Please note that you must own \"Killer's Trap\" gamepass!",
     Callback = function()
-        local args = { 3 }
+        local args = { 4 }
 		game:GetService("ReplicatedStorage"):WaitForChild("AbilityEvent"):FireServer(unpack(args))
     end
 })
@@ -347,7 +347,7 @@ Binds:Keybind({
     Value = "R",
     --Locked = isNormalPlace(),
     Callback = function()
-        if isNormalPlace() ==false then
+        if isNormalPlace() == false then
     	    game:GetService("ReplicatedStorage"):WaitForChild("VCactivated"):FireServer()
         end
     end
