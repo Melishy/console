@@ -223,7 +223,7 @@ Killer:Divider()
 
 Killer:Toggle({
 	Title = "Toggle Scan",
-	Desc = "Just like a Killer that can scan everyone's locations",
+	Desc = "Just like a Killer that can scan everyone's locations [OP: DISABLES REVIVING FOR EVERYONE]",
 	Type = "Toggle",
 	Default = false,
 	Callback = function(state)
