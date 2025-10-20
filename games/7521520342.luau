@@ -1,6 +1,6 @@
 -- open source ofc, because it's like easy to make your own one.
 
-if not game.GameId == "126922689754590" then return end
+if not game.GameId == 7521520342 then return end
 local WindUI = loadstring(game:HttpGet("https://github.com/Footagesus/WindUI/releases/latest/download/main.lua"))()
 
 --[[ VARIABLES ]]--
@@ -15,8 +15,8 @@ local pusheyo = false
 local vcing = false
 local scanno = false
 
-function isVoicePlace() 
-    return game.PlaceId ~= "81399969866087" 
+function isNormalPlace() 
+    return game.PlaceId ~= 81399969866087
 end
 
 --[[ WINDOW ]]--
@@ -178,7 +178,7 @@ Survivor:Toggle({
 	Desc = "Best method to leak your location!",
 	Type = "Toggle",
 	Default = false,
-    Locked = isVoicePlace(),
+    Locked = isNormalPlace(),
 	Callback = function(state)
 		vcing = state
 
@@ -200,7 +200,7 @@ Survivor:Toggle({
 Survivor:Button({
     Title = "One-time fake VC activation",
 	Desc = "[for mobile users]",
-    Locked = isVoicePlace(),
+    Locked = isNormalPlace(),
     Callback = function()
         game:GetService("ReplicatedStorage"):WaitForChild("VCactivated"):FireServer()
     end
@@ -345,9 +345,9 @@ Binds:Keybind({
 	Title = "One-time fake VC activation",
     Desc = "Seems like indeed the best location leaker",
     Value = "R",
-    --Locked = isVoicePlace(),
+    --Locked = isNormalPlace(),
     Callback = function()
-        if isVoicePlace() then
+        if isNormalPlace() then
     	    game:GetService("ReplicatedStorage"):WaitForChild("VCactivated"):FireServer()
         end
     end
