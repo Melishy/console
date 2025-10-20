@@ -1,6 +1,6 @@
 -- open source ofc, because it's like easy to make your own one.
 
---if not game.GameId == "126922689754590" then return end
+if not game.GameId == "126922689754590" then return end
 local WindUI = loadstring(game:HttpGet("https://github.com/Footagesus/WindUI/releases/latest/download/main.lua"))()
 
 --[[ VARIABLES ]]--
@@ -164,7 +164,7 @@ Survivor:Toggle({
 
 Survivor:Button({
     Title = "One-time Yell",
-    Desc = "This button exists just in case you're not a PC player",
+	Desc = "[for mobile users]",
     Callback = function()
         local args = { 1 }
 		game:GetService("ReplicatedStorage"):WaitForChild("AbilityEvent"):FireServer(unpack(args))
@@ -199,7 +199,7 @@ Survivor:Toggle({
 
 Survivor:Button({
     Title = "One-time fake VC activation",
-    Desc = "You know why is this button exists..",
+	Desc = "[for mobile users]",
     Locked = isVoicePlace(),
     Callback = function()
         game:GetService("ReplicatedStorage"):WaitForChild("VCactivated"):FireServer()
@@ -247,7 +247,7 @@ Killer:Toggle({
 
 Killer:Button({
     Title = "One-time Scan",
-    Desc = "for mobile for mobile for mobile for mobile case, got it?",
+	Desc = "[for mobile users]",
     Callback = function()
         game:GetService("ReplicatedStorage"):WaitForChild("VCactivated"):FireServer()
     end
@@ -287,8 +287,8 @@ Gamepass:Toggle({
 })
 
 Gamepass:Button({
-    Title = "One-time push",
-    Desc = "yeah, cool skills",
+    Title = "One-time Push",
+    Desc = "[for mobile users] Please note that you must own \"Push Players\" gamepass!",
     Callback = function()
         game:GetService("ReplicatedStorage"):WaitForChild("VCactivated"):FireServer()
     end
@@ -305,7 +305,7 @@ Gamepass:Toggle({
 		trapeyo = state
 
 		local function trap()
-			local args = { 3 }
+			local args = { 4 }
 			game:GetService("ReplicatedStorage"):WaitForChild("AbilityEvent"):FireServer(unpack(args))
 		end
 
@@ -322,7 +322,7 @@ Gamepass:Toggle({
 
 Gamepass:Button({
     Title = "One-time Set Trap",
-    Desc = "Please note that you must own \"Killer's Trap\" gamepass!",
+    Desc = "[for mobile users] Please note that you must own \"Killer's Trap\" gamepass!",
     Callback = function()
         local args = { 3 }
 		game:GetService("ReplicatedStorage"):WaitForChild("AbilityEvent"):FireServer(unpack(args))
@@ -378,7 +378,7 @@ Binds:Keybind({
 	Desc = "Please note that you must own \"Killer's Trap\" gamepass!",
 	Value = "X",
 	Callback = function()
-		local args = { 3 }
+		local args = { 4 }
 		game:GetService("ReplicatedStorage"):WaitForChild("AbilityEvent"):FireServer(unpack(args))
 	end
 })
