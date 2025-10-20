@@ -222,7 +222,7 @@ Killer:Paragraph({
 Killer:Divider()
 
 Killer:Toggle({
-	Title = "Toggle Scan",
+	Title = "Toggle Radar",
 	Desc = "Just like a Killer that can scan everyone's locations [OP: DISABLES REVIVING FOR EVERYONE]",
 	Type = "Toggle",
 	Default = false,
