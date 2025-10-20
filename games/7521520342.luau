@@ -347,7 +347,7 @@ Binds:Keybind({
     Value = "R",
     --Locked = isNormalPlace(),
     Callback = function()
-        if isNormalPlace() then
+        if not isNormalPlace() then
     	    game:GetService("ReplicatedStorage"):WaitForChild("VCactivated"):FireServer()
         end
     end
