@@ -6,14 +6,12 @@ local WindUI = loadstring(game:HttpGet("https://github.com/Footagesus/WindUI/rel
 --[[ VARIABLES ]]--
 
 local Players = game:GetService("Players")
-local speaker = Players.LocalPlayer
-local mouse = speaker:GetMouse()
+local Speaker = Players.LocalPlayer
+local Mouse = Speaker:GetMouse()
+local RunService = game:GetService("RunService")
 
-local connection
-local yello = false
-local pusheyo = false
-local vcing = false
-local scanno = false
+local tpCon, yellCon, vcCon, scanCon, pushCon, trapCon
+local Yello, Pusheyo, VCing, Scanno, Trapeyo = false, false, false, false, false
 
 function isNormalPlace() 
     return game.PlaceId ~= 81399969866087
@@ -90,35 +88,35 @@ Main:Toggle({
 			local tool = Instance.new("Tool")
 			tool.Name = "Teleport Tool"
 			tool.RequiresHandle = false
-			tool.Parent = speaker.Backpack
+			tool.Parent = Speaker.Backpack
 
 			tool.Activated:Connect(function()
-				local Char = speaker.Character or workspace:FindFirstChild(speaker.Name)
+				local Char = Speaker.Character or workspace:FindFirstChild(Speaker.Name)
 				local HRP = Char and Char:FindFirstChild("HumanoidRootPart")
 				if not Char or not HRP then
 					return warn("Failed to find HumanoidRootPart")
 				end
 
-				HRP.CFrame = CFrame.new(mouse.Hit.X, mouse.Hit.Y + 3, mouse.Hit.Z, select(4, HRP.CFrame:components()))
+				HRP.CFrame = CFrame.new(Mouse.Hit.X, Mouse.Hit.Y + 3, Mouse.Hit.Z, select(4, HRP.CFrame:components()))
 			end)
 			
 			return tool
 		end
 
 		if state then
-			if not speaker.Backpack:FindFirstChild("Teleport Tool") then
+			if not Speaker.Backpack:FindFirstChild("Teleport Tool") then
 				gib()
 			end
 
-			connection = speaker.CharacterAdded:Connect(function()
+			tpCon = Speaker.CharacterAdded:Connect(function()
 				gib()
 			end)
 		else
-			if connection then
-				connection:Disconnect()
-				connection = nil
+			if tpCon then
+				tpCon:Disconnect()
+				tpCon = nil
 				
-				local tool = speaker.Backpack:FindFirstChild("Teleport Tool")
+				local tool = Speaker.Backpack:FindFirstChild("Teleport Tool")
 				if tool then tool:Destroy() end
 			end
 		end
@@ -144,7 +142,7 @@ Survivor:Toggle({
 	Type = "Toggle",
 	Default = false,
 	Callback = function(state)
-		yello = state
+		Yello = state
 
 		local function yell()
 			local args = { 1 }
@@ -152,12 +150,12 @@ Survivor:Toggle({
 		end
 
 		if state then
-			task.spawn(function()
-				repeat
-					yell()
-					task.wait(.1)
-				until not yello
-			end)
+			yellCon = RunService.Heartbeat:Connect(yell)
+		else
+			if yellCon then
+				yellCon:Disconnect()
+				yellCon = nil
+			end
 		end
 	end
 })
@@ -180,19 +178,19 @@ Survivor:Toggle({
 	Default = false,
     Locked = isNormalPlace(),
 	Callback = function(state)
-		vcing = state
+		VCing = state
 
 		local function vcify()
 			game:GetService("ReplicatedStorage"):WaitForChild("VCactivated"):FireServer()
 		end
 
     	if state then
-    		task.spawn(function()
-    			repeat
-    				vcify()
-    				task.wait(.1)
-    			until not vcing
-    		end)
+    		vcCon = RunService.Heartbeat:Connect(vcify)
+    	else
+			if vcCon then
+				vcCon:Disconnect()
+				vcCon = nil
+			end
     	end
     end
 })
@@ -227,7 +225,7 @@ Killer:Toggle({
 	Type = "Toggle",
 	Default = false,
 	Callback = function(state)
-		scanno = state
+		Scanno = state
 
 		local function scanify()
 			local args = { 3 }
@@ -235,12 +233,12 @@ Killer:Toggle({
 		end
 
 		if state then
-			task.spawn(function()
-				repeat
-					scanify()
-					task.wait(.1)
-				until not scanno
-			end)
+			scanCon = RunService.Heartbeat:Connect(scanify)
+		else
+			if scanCon then
+				scanCon:Disconnect()
+				scanCon = nil
+			end
 		end
 	end
 })
@@ -249,7 +247,8 @@ Killer:Button({
     Title = "One-time Scan",
 	Desc = "[for mobile users]",
     Callback = function()
-        game:GetService("ReplicatedStorage"):WaitForChild("VCactivated"):FireServer()
+        local args = { 3 }
+        game:GetService("ReplicatedStorage"):WaitForChild("AbilityEvent"):FireServer(unpack(args))
     end
 })
 
@@ -268,7 +267,7 @@ Gamepass:Toggle({
 	Type = "Toggle",
 	Default = false,
 	Callback = function(state)
-		pusheyo = state
+		Pusheyo = state
 
 		local function push()
 			local args = { 2 }
@@ -276,12 +275,12 @@ Gamepass:Toggle({
 		end
 
 		if state then
-			task.spawn(function()
-				repeat
-					push()
-					task.wait(.1)
-				until not pusheyo
-			end)
+			pushCon = RunService.Heartbeat:Connect(push)
+		else
+			if pushCon then
+				pushCon:Disconnect()
+				pushCon = nil
+			end
 		end
 	end
 })
@@ -290,7 +289,8 @@ Gamepass:Button({
     Title = "One-time Push",
     Desc = "[for mobile users] Please note that you must own \"Push Players\" gamepass!",
     Callback = function()
-        game:GetService("ReplicatedStorage"):WaitForChild("VCactivated"):FireServer()
+        local args = { 2 }
+		game:GetService("ReplicatedStorage"):WaitForChild("AbilityEvent"):FireServer(unpack(args))
     end
 })
 
@@ -302,7 +302,7 @@ Gamepass:Toggle({
 	Type = "Toggle",
 	Default = false,
 	Callback = function(state)
-		trapeyo = state
+		Trapeyo = state
 
 		local function trap()
 			local args = { 4 }
@@ -310,12 +310,12 @@ Gamepass:Toggle({
 		end
 
 		if state then
-			task.spawn(function()
-				repeat
-					push()
-					task.wait(.1)
-				until not trapeyo
-			end)
+			trapCon = RunService.Heartbeat:Connect(trap)
+		else
+			if trapCon then
+				trapCon:Disconnect()
+				trapCon = nil
+			end
 		end
 	end
 })
