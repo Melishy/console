@@ -19,7 +19,9 @@ MMM  M'  "MMM "YUM" MP"MM,   "YUM" MP "YUMMP      "YUMMMMMP""YUMMP MMM  "MMM"YUM
 }---------------------------------------------------------------------------------------------------------------------{
 ]]
 
-if not game:IsLoaded() then game.Loaded:Wait() end
+if not game:IsLoaded() then
+    game.Loaded:Wait()
+end
 
 --[[ VARIABLES ]]--
 
@@ -31,44 +33,46 @@ local meta = {
 local data = meta[game.GameId]
 
 local Wind = loadstring(game:HttpGet("https://github.com/Footagesus/WindUI/releases/latest/download/main.lua"))()
+local res = loadstring(game:HttpGet("https://raw.githubusercontent.com/Melishy/console/" .. (shared.Margo_Branch and tostring(shared.Margo_Branch) or "main") .. "/games/" .. tostring(game.GameId) .. ".luau"))
 
 --[[ LOGIC ]]--
 
 if not data then
     return Wind:Notify({
-        Title = "Margo Console",
-        Content = "Uh, the game isn't on our supported games list :P",
-        Duration = 6.9,
-        Icon = "scroll-text"
-    })
+            Title = "Margo Console",
+            Content = "Uh, the game isn't on our supported games list :P",
+            Duration = 6.9,
+            Icon = "scroll-text"
+        })
 end
 
 if data.places and #data.places > 0 and not table.find(data.places, game.PlaceId) then
     return Wind:Notify({
-        Title = "Margo Console",
-        Content = "Uh, while the game is supported, this place isn't on that list :d",
-        Duration = 6.9,
-        Icon = "scroll-text"
-    })
+                Title = "Margo Console",
+                Content = "Uh, while the game is supported, this place isn't on that list :d",
+                Duration = 6.9,
+                Icon = "scroll-text"
+            })
 end
 
 Wind:Notify({
     Title = "Margo Console",
-    Content = "Okay, loading a script for "..tostring(data.title),
+    Content = "Okay, loading a script for " .. tostring(data.title),
     Duration = 6.9,
     Icon = "pizza"
 })
 
 if type(res) ~= "function" then
     return Wind:Notify({
-        Title = "Margo Console",
-        Content = "Actually, nevermind. I have found issues though",
-        Duration = 6.9,
-        Icon = "pizza"
-    })
+                Title = "Margo Console",
+                Content = "Actually, nevermind. I have found issues though",
+                Duration = 6.9,
+                Icon = "pizza"
+            })
 end
 
 local suc, err = pcall(res)
+
 if not suc then
     Wind:Notify({
         Title = "Margo Console",
@@ -76,6 +80,6 @@ if not suc then
         Duration = 6.9,
         Icon = "pizza"
     })
-    
-    return error("[Margo Console/ERROR]:", err)
+
+    return error("[Margo Console/ERROR]: "..err)
 end
