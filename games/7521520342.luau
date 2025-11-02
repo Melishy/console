@@ -204,12 +204,6 @@ Survivor:Button({
     end
 })
 
-Survivor:Section({
-    Title = "Note that it only works in VC servers! Locking that keybind doesn't work yet",
-    TextSize = 13,
-    Opened = true
-})
-
 --[[ KILLER TAB ]]--
 
 Killer:Paragraph({
@@ -345,18 +339,12 @@ Binds:Keybind({
 	Title = "One-time fake VC activation",
     Desc = "Seems like indeed the best location leaker",
     Value = "R",
-    --Locked = isNormalPlace(),
+    Locked = isNormalPlace(),
     Callback = function()
         if isNormalPlace() == false then
     	    game:GetService("ReplicatedStorage"):WaitForChild("VCactivated"):FireServer()
         end
     end
-})
-
-Binds:Section({
-    Title = "Note that it only works in VC servers! Locking that keybind doesn't work yet",
-    TextSize = 13,
-    Opened = true
 })
 
 Binds:Divider()
