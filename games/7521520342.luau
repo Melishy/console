@@ -338,7 +338,7 @@ Binds:Keybind({
 Binds:Keybind({
 	Title = "One-time fake VC activation",
     Desc = "Seems like indeed the best location leaker",
-    Value = "R",
+    Value = "T",
     Locked = isNormalPlace(),
     Callback = function()
         if isNormalPlace() == false then
